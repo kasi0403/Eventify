@@ -96,9 +96,7 @@ const MyBookings = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
+    <div className="min-h-screen bg-background">   
       <main className="container mx-auto px-4 pt-32 pb-20">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">My Bookings</h1>

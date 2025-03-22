@@ -40,7 +40,6 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <div className="container mx-auto px-4 pt-32 pb-20 flex flex-col items-center">
         <div className="w-full max-w-md">
           <div className="mb-8">
@@ -82,6 +81,21 @@ const SignUp = () => {
                     onChange={handleChange}
                     className="w-full h-10 px-3 border border-input rounded-md"
                     placeholder="Enter your name"
+                    required
+                  />
+                </div>
+              )}
+
+                {(role === "Attendee" || role === "Event Organizer") && (
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium mb-1">Password</label>
+                  <input
+                    name="password"
+                    type="text"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="w-full h-10 px-3 border border-input rounded-md"
+                    placeholder="Enter your password"
                     required
                   />
                 </div>

@@ -27,7 +27,6 @@ const OrganizerDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <main className="container mx-auto px-4 pt-32 pb-20">
         <h1 className="text-3xl font-bold mb-2">Event Dashboard</h1>
         

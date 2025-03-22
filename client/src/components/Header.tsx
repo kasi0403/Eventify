@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -13,6 +12,7 @@ import {
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [role, setRole] = useState("");
   const location = useLocation();
 
   useEffect(() => {
@@ -25,8 +25,40 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
+    setRole(sessionStorage.getItem("role") || ""); // Get role from sessionStorage
     setIsMobileMenuOpen(false);
   }, [location]);
+
+  const renderNavLinks = () => {
+    if (role === "Admin") {
+      return (
+        <>
+          <Link to="/" className={navLinkClass("/")}>Home</Link>
+          <Link to="/admin-dashboard" className={navLinkClass("/admin-dashboard")}>Admin Dashboard</Link>
+        </>
+      );
+    } else if (role === "Event Organizer") {
+      return (
+        <>
+          <Link to="/" className={navLinkClass("/")}>Home</Link>
+          <Link to="/org-dash" className={navLinkClass("/org-dash")}>Organizer Dashboard</Link>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Link to="/" className={navLinkClass("/")}>Home</Link>
+          <Link to="/events" className={navLinkClass("/events")}>Events</Link>
+          <Link to="/bookings" className={navLinkClass("/bookings")}>My Bookings</Link>
+        </>
+      );
+    }
+  };
+
+  const navLinkClass = (path) =>
+    `text-sm font-medium transition-colors hover:text-primary ${
+      location.pathname.includes(path) ? 'text-primary' : 'text-foreground/80'
+    }`;
 
   return (
     <header 
@@ -37,10 +69,7 @@ const Header = () => {
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        <Link 
-          to="/" 
-          className="flex items-center space-x-2"
-        >
+        <Link to="/" className="flex items-center space-x-2">
           <Calendar className="h-6 w-6 text-primary" />
           <span className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
             EventMaster
@@ -49,30 +78,7 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link 
-            to="/" 
-            className={`text-sm font-medium transition-colors hover:text-primary ${
-              location.pathname === '/' ? 'text-primary' : 'text-foreground/80'
-            }`}
-          >
-            Home
-          </Link>
-          <Link 
-            to="/events" 
-            className={`text-sm font-medium transition-colors hover:text-primary ${
-              location.pathname.includes('/events') ? 'text-primary' : 'text-foreground/80'
-            }`}
-          >
-            Events
-          </Link>
-          <Link 
-            to="/bookings" 
-            className={`text-sm font-medium transition-colors hover:text-primary ${
-              location.pathname === '/bookings' ? 'text-primary' : 'text-foreground/80'
-            }`}
-          >
-            My Bookings
-          </Link>
+          {renderNavLinks()}
         </nav>
 
         {/* Desktop Actions */}
@@ -94,11 +100,7 @@ const Header = () => {
           className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-accent hover:text-accent-foreground"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
+          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
@@ -106,30 +108,7 @@ const Header = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 top-16 bg-white/90 backdrop-blur-md z-40 animate-fade-in">
           <div className="container mx-auto px-4 py-8 flex flex-col space-y-6">
-            <Link 
-              to="/" 
-              className={`text-lg font-medium transition-colors ${
-                location.pathname === '/' ? 'text-primary' : 'text-foreground/80'
-              }`}
-            >
-              Home
-            </Link>
-            <Link 
-              to="/events" 
-              className={`text-lg font-medium transition-colors ${
-                location.pathname.includes('/events') ? 'text-primary' : 'text-foreground/80'
-              }`}
-            >
-              Events
-            </Link>
-            <Link 
-              to="/bookings" 
-              className={`text-lg font-medium transition-colors ${
-                location.pathname === '/bookings' ? 'text-primary' : 'text-foreground/80'
-              }`}
-            >
-              My Bookings
-            </Link>
+            {renderNavLinks()}
             <div className="pt-4 border-t border-border">
               <Link 
                 to="/signin" 

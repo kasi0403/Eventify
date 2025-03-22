@@ -20,7 +20,9 @@ const SignIn = () => {
       });
 
       if (response.data.success) {
+        sessionStorage.setItem("role", role); // Store role in sessionStorage
         alert("Login successful!");
+
         // Redirect based on role
         if (role === "Attendee") navigate("/");
         if (role === "Event Organizer") navigate("/");
@@ -29,7 +31,8 @@ const SignIn = () => {
     } catch (error) {
       alert("Invalid credentials");
     }
-  };
+};
+
 
   return (
     <div className="min-h-screen bg-background">
