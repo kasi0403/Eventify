@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Attendee = require("../schemas/atendees");
 const Organizer = require("../schemas/organizer");
-const Admin = require("../schemas/admin");
+const {Event,Admin} = require("../schemas/event");
 
 const router = express.Router();
 

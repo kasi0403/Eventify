@@ -41,7 +41,8 @@ const Header = () => {
       return (
         <>
           <Link to="/" className={navLinkClass("/")}>Home</Link>
-          <Link to="/org-dash" className={navLinkClass("/org-dash")}>Organizer Dashboard</Link>
+          <Link to="/org-Events" className={navLinkClass("/org-Events")}>Events</Link>
+          <Link to="/List" className={navLinkClass("/List")}>List Event</Link>
         </>
       );
     } else {

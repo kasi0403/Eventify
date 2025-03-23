@@ -80,7 +80,6 @@ const EventDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <div className="container mx-auto px-4 pt-32 pb-20">
           <div className="flex justify-center items-center h-64">
             <div className="flex flex-col items-center">

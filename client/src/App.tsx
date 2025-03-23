@@ -26,6 +26,7 @@ const App = () => {
     if (storedRole) {
       setRole(storedRole);
     }
+    console.log(role)
   }, []); // Runs only once when the component mounts
 
   return (
