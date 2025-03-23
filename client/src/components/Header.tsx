@@ -50,6 +50,7 @@ const Header = () => {
           <Link to="/" className={navLinkClass("/")}>Home</Link>
           <Link to="/events" className={navLinkClass("/events")}>Events</Link>
           <Link to="/bookings" className={navLinkClass("/bookings")}>My Bookings</Link>
+          <Link to="/find-group" className={navLinkClass("/find-group")}>Find a group</Link>
         </>
       );
     }
