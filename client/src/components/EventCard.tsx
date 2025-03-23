@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Calendar, MapPin, Heart, Users, Star, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Badge } from './ui/badge';
@@ -22,8 +21,20 @@ interface EventCardProps {
   variant?: 'default' | 'featured' | 'compact';
 }
 
-const EventCard = ({ event, variant = 'default' }: EventCardProps) => {
+
+const EventCard = ({ event, variant = 'default'}: EventCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedRole = sessionStorage.getItem("role") || "Attendee";
+    setRole(storedRole);
+  }, []);
+  
+  // Determine the correct route based on user role
+  const getEventLink = () => {
+    return role === "Event Organizer" ? `/org-dash/${event.id}` : `/events/${event.id}`;
+  };
   
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { 
@@ -82,7 +93,7 @@ const EventCard = ({ event, variant = 'default' }: EventCardProps) => {
           </div>
           
           <Link 
-            to={`/events/${event.id}`}
+            to={getEventLink()}
             className="absolute inset-0 z-30"
             aria-label={`View details for ${event.title}`}
           />
@@ -130,7 +141,7 @@ const EventCard = ({ event, variant = 'default' }: EventCardProps) => {
             </div>
           </div>
           <Link 
-            to={`/events/${event.id}`}
+            to={getEventLink()}
             className="absolute inset-0"
             aria-label={`View details for ${event.title}`}
           />
@@ -189,7 +200,7 @@ const EventCard = ({ event, variant = 'default' }: EventCardProps) => {
             <span className="text-primary">{event.currency} {event.price}</span>
           </div>
           <Button variant="ghost" size="sm" asChild className="hover:text-primary">
-            <Link to={`/events/${event.id}`}>
+            <Link to={getEventLink()}>
               View Details
             </Link>
           </Button>

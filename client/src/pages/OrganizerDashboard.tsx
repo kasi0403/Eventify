@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Award } from 'lucide-react';
-import Header from '../components/Header';
+import { useParams } from 'react-router-dom';
 import QrScanner from 'react-qr-scanner';
 
 const badges = [
@@ -13,22 +13,28 @@ const initialEntries = [];
 const crowdData = { 'Main Stage': 50, 'VIP Area': 20, 'Food Court': 80 };
 
 const OrganizerDashboard = () => {
+  const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState('Scan QR');
   const [entries, setEntries] = useState(initialEntries);
   const [crowd, setCrowd] = useState(crowdData);
 
-  const handleScan = (data) => {
+  useEffect(() => {
+    // Here you could fetch event-specific data based on the ID
+    console.log(`Loading dashboard for event ID: ${id}`);
+  }, [id]);
+
+  const handleScan = (data: any) => {
     if (data) {
       setEntries([...entries, { id: entries.length + 1, name: data.text }]);
     }
   };
 
-  const handleError = (err) => console.error(err);
+  const handleError = (err: Error) => console.error(err);
 
   return (
     <div className="min-h-screen bg-background">
       <main className="container mx-auto px-4 pt-32 pb-20">
-        <h1 className="text-3xl font-bold mb-2">Event Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-2">Event Dashboard #{id}</h1>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {badges.map(badge => (

@@ -41,7 +41,8 @@ const Header = () => {
       return (
         <>
           <Link to="/" className={navLinkClass("/")}>Home</Link>
-          <Link to="/org-dash" className={navLinkClass("/org-dash")}>Organizer Dashboard</Link>
+          <Link to="/org-Events" className={navLinkClass("/org-Events")}>Events</Link>
+          <Link to="/List" className={navLinkClass("/List")}>List Event</Link>
         </>
       );
     } else {
@@ -50,6 +51,7 @@ const Header = () => {
           <Link to="/" className={navLinkClass("/")}>Home</Link>
           <Link to="/events" className={navLinkClass("/events")}>Events</Link>
           <Link to="/bookings" className={navLinkClass("/bookings")}>My Bookings</Link>
+          <Link to="/find-group" className={navLinkClass("/find-group")}>Find a group</Link>
         </>
       );
     }
